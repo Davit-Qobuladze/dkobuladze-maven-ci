@@ -7,34 +7,46 @@
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.mockito.Mockito;
+import static org.mockito.Mockito.*;
+
 
 /**
  *
  * @author dato
  */
-public class BankTest {
+public class PersonTest {
     
     private String owner;
     private double amount;
     private Account account;
-    private Bank bank;
+    private Person person;
+    private double money;
     
     @Before
     public void setUp() {
         owner = "SDP";
         amount = 1500;
         account = new Account(owner, amount);
-        bank = new Bank();
+        person = new Person(account);
+        money = -20;
     }
 
     @Test
-    public void testMakeFine() {
-        bank.makeFine(account);
+    public void withdraw() {
+        person.changeBalance(money);
         
         double actualBalance = account.getBalance();
-        double expected = amount - bank.getFine();
+        double expected = amount + money;
         assertEquals(expected, actualBalance, 0);
     }
 
-    
+    @Test
+    public void cannot_withdraw() {
+        Account mockAccount = mock(Account.class);
+        when(mockAccount.getBalance()).thenReturn(0.0);
+        
+        person.changeBalance(money);
+        verify(mockAccount, never()).setBalance(money);
+    }
 }

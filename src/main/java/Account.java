@@ -19,8 +19,7 @@ public class Account {
     }
     
     public void setBalance(double money){
-        if (money > 0 || Math.abs(money) < Math.abs(amount))
-            amount += money;
+        amount += money;
     }
     
     public double getBalance(){
