@@ -21,6 +21,6 @@ public class Bank {
     }
     
     public double getFine(){
-        return bankFine;
+        return Math.abs(bankFine);
     }
 }
